@@ -1,24 +1,12 @@
-import React, { useState, useEffect } from 'react'
-import { useGlobalSpinerActionsContext } from '../context/GlobalSpinnerContext';
+import React from 'react'
+import { useGlobalSpinnerContext } from '../context/GlobalSpinnerContext';
 
 export const RandomComments = () => {
-  const [comments, setComments] = useState([]);
-  // no longer needs useContext here since it now is in GlobalSpinnerContext
-  const setIsLoading = useGlobalSpinerActionsContext();
-
-  useEffect(() => {
-    (async () => {
-      setIsLoading(true);
-      const result = await fetch('https://jsonplaceholder.typicode.com/comments')
-      const data = await result.json()
-      setComments(data);
-      setIsLoading(false);
-    })()
-  }, [setIsLoading])
+  const { data } = useGlobalSpinnerContext()
 
   return (
     <>
-      {comments.map((c) => {
+      {data.map((c) => {
         const { name, body, id } = c
         return (
           <div key={id}>
