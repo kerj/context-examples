@@ -1,8 +1,11 @@
-import React, { createContext, useState } from 'react'
+import React, { createContext, useState, useContext } from 'react'
 
-export const GlobalSpinnerContext = createContext();
-export const GlobalSpinerActionsContext = createContext();
-
+const GlobalSpinnerContext = createContext();
+const GlobalSpinerActionsContext = createContext();
+// place useContext here to consume context cleaner throughout app, see previous commit for diff
+export const useGlobalSpinnerContext = () => useContext(GlobalSpinnerContext);
+export const useGlobalSpinnerContextActions = () => useContext(GlobalSpinerActionsContext);
+ 
 export const GlobalSpinnerContextProvider = props => {
   const [isLoading, setIsLoading] = useState(false)
 

@@ -1,9 +1,10 @@
-import React, {useContext} from 'react'
-import { GlobalSpinnerContext } from '../../context/GlobalSpinnerContext'
+import React from 'react'
+import { useGlobalSpinnerContext } from '../../context/GlobalSpinnerContext'
 import './globalSpinner.css'
 
 export const GlobalSpinner = () => {
-  const isLoading = useContext(GlobalSpinnerContext)
+  // no longer needs useContext here since it now is in GlobalSpinnerContext
+  const isLoading = useGlobalSpinnerContext();
   return isLoading ? (
     <div className="overlay">
       <p>Loading...</p>
