@@ -2,22 +2,19 @@ import React, { createContext, useState, useContext } from 'react'
 
 const GlobalSpinnerContext = createContext();
 const GlobalSpinerActionsContext = createContext();
-// check that context is accessed within provides, throw error otherwise
-export const useGlobalSpinnerContext = () => {
-  const context = useContext(GlobalSpinnerContext);
-  if (context === undefined) {
-    throw new Error('useGlobalSpinnerContext must called be within GlobalSpinnerContext provider')
+
+const contextFactory = (name, context) => {
+  return () => {
+    const ctx = useContext(context);
+    if (ctx === undefined) {
+      throw new Error(`use${name}Context must be used within a ${name}ContextProvider.`)
+    }
+    return ctx
   }
-  return context;
 }
 
-export const useGlobalSpinnerContextActions = () => {
-  const context = useContext(GlobalSpinerActionsContext);
-  if (context === undefined) {
-    throw new Error('useGlobalSpinnerContextActions must called be within GlobalSpinerActionsContext provider')
-  }
-  return context;
-}
+export const useGlobalSpinnerContext = contextFactory('GlobalSpinnerContext', GlobalSpinnerContext);
+export const useGlobalSpinerActionsContext = contextFactory('GlobalSpinnerContextActions', GlobalSpinerActionsContext);
 
 export const GlobalSpinnerContextProvider = props => {
   const [isLoading, setIsLoading] = useState(false)
